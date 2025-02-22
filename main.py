@@ -8,6 +8,8 @@ CORS(app)
 
 OLLAMA_API_URL = 'http://localhost:11434/api/chat'
 
+MODEL_TYPE = "deepseek-r1:14b"
+
 @app.route('/')
 def index():
     return send_from_directory('', 'index.html')
@@ -17,7 +19,7 @@ def chat():
     user_input = request.json.get('message')
     
     def generate():
-        with requests.post(OLLAMA_API_URL, json={"model": "deepseek-r1:14b", "messages": [{"role": "user", "content": user_input}]}, stream=True) as r:
+        with requests.post(OLLAMA_API_URL, json={"model": MODEL_TYPE, "messages": [{"role": "user", "content": user_input}]}, stream=True) as r:
             for chunk in r.iter_content(chunk_size=8192):
                 if chunk:
                     data = json.loads(chunk.decode('utf-8'))

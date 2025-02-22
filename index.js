@@ -24,15 +24,17 @@ chatInput.addEventListener('keypress', function(event) {
 });
 
 async function onButtonAction() {
-    const message = chatInput.value; // Trim the message to remove whitespace
+    const text = chatInput.value + '\n';
+    const message = chatInput.value;
     if (message === '') return; // Do not send if message is empty
 
     chatInput.value = '';
     autoResize();
     const userMessageDiv = document.createElement('div');
     userMessageDiv.innerHTML = `<strong>You:</strong>`;    
-    const userMessagePre = document.createElement('pre');
-    userMessagePre.textContent = message; // Set textContent instead of innerHTML to preserve formatting
+    const userMessagePre = document.createElement('pre');     
+    userMessagePre.className = 'user-message';    
+    userMessagePre.textContent = text;
     userMessageDiv.appendChild(userMessagePre);
     chatMessages.appendChild(userMessageDiv);
 
